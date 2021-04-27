@@ -7,18 +7,21 @@ import java.util.Scanner;
 
 public class Author {
 
-    static public Map<Integer,String> authorList = new HashMap<>();
+    static Map<Integer,Author> authorList = new HashMap<>();
     private int authorID;
     private String authorName;
     private LocalDate authorDOB;
-    public ArrayList <Integer> bookList = new ArrayList<>();
+    ArrayList <Integer> bookList = new ArrayList<>();
 
-    Author(String authorNameInput, String authorDOBInput){
+    public Author(String authorNameInput, String authorDOBInput){
         this.authorName = authorNameInput;
         this.authorDOB = LocalDate.parse(authorDOBInput);
         this.authorID = authorList.size()+1;
-        authorList.put(authorList.size(),authorName);
+        authorList.put(authorList.size(),this);
 
+    }
+    public String getAuthorName(){
+        return authorName;
     }
     public int getAuthorID() {
         return authorID;
@@ -28,29 +31,21 @@ public class Author {
         return authorDOB;
     }
 
-    static public String authorNameLookUp(String authorName){
-        if (authorList.containsValue(authorName)){
-            return authorName;
-        }
-        else{
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Author not found, add DOB.");
-            String newAuthorDOB =sc.nextLine();
-            new Author (authorName,newAuthorDOB);
-            return authorName;
-        }
-    }
+    static public Author authorLookUp(String authorName){
 
-    static public int authorIDLookUp(String authorName){
-        int foundKey =-1;
-        for (int key: authorList.keySet()){
-            if (authorList.get(key).equals(authorName)){
-                foundKey = key;
+        for (int key:authorList.keySet()){
+            if(authorList.get(key).authorName.equals(authorName)){
+                return authorList.get(key);
             }
-
         }
-        return foundKey;
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Author not found, add DOB.");
+        String newAuthorDOB = sc.nextLine();
+        return new Author(authorName, newAuthorDOB);
+
     }
+
 
     public void addBook(int bookID){
         this.bookList.add(bookID);

@@ -8,17 +8,16 @@ public class Book {
     private int authorID;
     private int numCopies;
     public int numAvail;
+    private static int numBooks;
 
-    Book(String title,String authorName, int numCopies){
+    public Book(String title,String authorName, int numCopies){
+        numBooks++;
         this.title = title;
-        this.authorName = Author.authorNameLookUp(authorName);
-        if(Author.authorIDLookUp(this.authorName)==-1){
-            System.out.println("Something went wrong.");
-        }
-        else{
-            this.authorID = Author.authorIDLookUp(this.authorName);
-        }
-
+        Author thisAuthor = Author.authorLookUp(authorName);
+        this.authorName = thisAuthor.getAuthorName();
+        this.authorID = thisAuthor.getAuthorID();
+        this.bookID = numBooks;
+        thisAuthor.addBook(bookID);
 
     }
 

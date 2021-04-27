@@ -11,7 +11,16 @@ public class Main {
         Book newAuth = new Book("Old Golf","Gumbo",99);
 
         for (int key: Author.authorList.keySet()){
-            System.out.println(key+" " +Author.authorList.get(key));
+            Author oneAuthor = Author.authorList.get(key);
+            System.out.print(oneAuthor.getAuthorName()+" ");
+            System.out.print(oneAuthor.getAuthorID()+" ");
+            System.out.print(oneAuthor.getAuthorDOB());
+            if (!oneAuthor.bookList.isEmpty()) {
+                System.out.print(" Book ID: "+oneAuthor.bookList.get(0));
+            }
+            System.out.println();
+
+
         }
 
     }
